@@ -19,7 +19,7 @@ sudo pacman -Syyu --noconfirm
 
 # Install regular packages
 print_msg "Installing regular packages..."
-sudo pacman -S --noconfirm discord firefox keepassxc mkinitcpio obsidian yay
+sudo pacman -S --noconfirm discord docker firefox keepassxc mkinitcpio obsidian yay
 
 # Install AUR packages
 print_msg "Installing AUR packages..."
