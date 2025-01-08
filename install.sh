@@ -23,7 +23,7 @@ sudo pacman -S --noconfirm discord docker firefox keepassxc mkinitcpio obsidian 
 
 # Install AUR packages
 print_msg "Installing AUR packages..."
-yay -S --noconfirm steam steamcmd visual-studio-code-bin
+yay -S --noconfirm onlyoffice-bin steam steamcmd visual-studio-code-bin
 
 # Install NVIDIA drivers
 print_msg "Installing NVIDIA drivers..."
