@@ -41,7 +41,7 @@ sudo pacman -Syyu --noconfirm
 
 # Install regular packages
 print_msg "Installing regular packages..."
-sudo pacman -S --noconfirm discord docker firefox fish keepassxc mkinitcpio obsidian starship yay
+sudo pacman -S --noconfirm discord docker fastfetch firefox fish keepassxc mkinitcpio obsidian starship yay
 
 # Install AUR packages
 print_msg "Installing AUR packages..."
@@ -64,6 +64,10 @@ for zip_file in ./fonts/*.zip; do
     sudo find "/usr/local/share/fonts/ttf/$folder_name" -type f ! -name "*.ttf" -delete
 done
 cp ./files/starship.toml ~/.config/starship.toml
+
+# Shell aliases
+print_msg "Configuring shell aliases..."
+echo 'alias update="sudo pacman -Syyu --noconfirm; and yay --noconfirm"' >> ~/.config/fish/config.fish
 
 # Update initramfs
 print_msg "Updating initramfs..."
