@@ -63,7 +63,7 @@ for zip_file in ./fonts/*.zip; do
     sudo unzip -oq "$zip_file" -d "/usr/local/share/fonts/ttf/$folder_name"
     sudo find "/usr/local/share/fonts/ttf/$folder_name" -type f ! -name "*.ttf" -delete
 done
-starship preset pastel-powerline -o ~/.config/starship.toml
+cp ./files/starship.toml ~/.config/starship.toml
 
 # Update initramfs
 print_msg "Updating initramfs..."
