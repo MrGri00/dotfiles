@@ -64,6 +64,7 @@ sed -i '/if status is-interactive/,/end/ {
     /fastfetch/d
 }' "$CONFIG_FILE"
 echo "starship init fish | source" >> $FISH_CONFIG_FILE
+echo 'set fish_greeting ""' >> $FISH_CONFIG_FILE
 for zip_file in ./fonts/*.zip; do
     folder_name=$(basename "$zip_file" .zip)
     sudo mkdir -p "/usr/local/share/fonts/ttf/$folder_name"
