@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Variables
+FISH_CONFIG_FILE=~/.config/fish/config.fish
+LOGO_DIR=/usr/share/$(whoami)/logos
+
 # Functions
 print_msg() {
     echo -e "\e[32m$1\e[0m"
@@ -56,7 +60,10 @@ prompt_gaming_software_installation
 # CLI configuration
 print_msg "Configuring CLI..."
 chsh -s $(which fish)
-echo "starship init fish | source" >> ~/.config/fish/config.fish
+sed -i '/if status is-interactive/,/end/ {
+    /fastfetch/d
+}' "$CONFIG_FILE"
+echo "starship init fish | source" >> $FISH_CONFIG_FILE
 for zip_file in ./fonts/*.zip; do
     folder_name=$(basename "$zip_file" .zip)
     sudo mkdir -p "/usr/local/share/fonts/ttf/$folder_name"
@@ -64,10 +71,12 @@ for zip_file in ./fonts/*.zip; do
     sudo find "/usr/local/share/fonts/ttf/$folder_name" -type f ! -name "*.ttf" -delete
 done
 cp ./files/starship.toml ~/.config/starship.toml
+sudo mkdir -p $LOGO_DIR
+sudo cp ./files/custom_logos/*.png $LOGO_DIR
 
 # Shell aliases
 print_msg "Configuring shell aliases..."
-echo 'alias update="sudo pacman -Syyu --noconfirm; and yay --noconfirm"' >> ~/.config/fish/config.fish
+echo 'alias update="sudo pacman -Syyu --noconfirm; and yay --noconfirm"' >> $FISH_CONFIG_FILE
 
 # Update initramfs
 print_msg "Updating initramfs..."
