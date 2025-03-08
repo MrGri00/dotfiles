@@ -10,16 +10,6 @@ print_msg() {
     echo -e "\e[32m$1\e[0m"
 }
 
-confirm() {
-    print_msg $1
-    read -r response
-    if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
-        return true
-    else
-        return false
-    fi
-}
-
 # Enable multilib repository
 print_msg "Enabling multilib repository..."
 sudo sed -i '/^\s*#\[multilib\]/s/^#//' "$PACMAN_CONF"
