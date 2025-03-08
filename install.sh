@@ -49,7 +49,7 @@ sudo pacman -S --noconfirm discord docker fastfetch firefox fish keepassxc mkini
 
 # Install AUR packages
 print_msg "Installing AUR packages..."
-yay -S --noconfirm onlyoffice-bin visual-studio-code-bin
+yay -S --noconfirm brave-bin onlyoffice-bin visual-studio-code-bin
 
 # NVIDIA drivers
 prompt_nvidia_installation
