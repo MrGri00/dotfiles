@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Variables
+PACMAN_CONF="/etc/pacman.conf"
 FISH_CONFIG_FILE=~/.config/fish/config.fish
 LOGO_DIR=/usr/share/$(whoami)/logos
 
@@ -19,23 +20,8 @@ confirm() {
     fi
 }
 
-prompt_nvidia_installation() {
-    if confirm "Do you want to install NVIDIA drivers? [y/N]"
-        print_msg "Installing NVIDIA drivers..."
-        sudo pacman -S --noconfirm nvidia-dkms nvidia-settings nvidia-utils
-    fi
-}
-
-prompt_gaming_software_installation() {
-    if confirm "Do you want to install gaming software? [y/N]"
-        print_msg "Installing gaming software..."
-        yay -S --noconfirm heroic-games-launcher steam steamcmd
-    fi
-}
-
 # Enable multilib repository
 print_msg "Enabling multilib repository..."
-PACMAN_CONF="/etc/pacman.conf"
 sudo sed -i '/^\s*#\[multilib\]/s/^#//' "$PACMAN_CONF"
 sudo sed -i '/^\s*#Include = \/etc\/pacman.d\/mirrorlist/s/^#//' "$PACMAN_CONF"
 
@@ -51,18 +37,20 @@ sudo pacman -S --noconfirm discord docker fastfetch firefox fish keepassxc mkini
 print_msg "Installing AUR packages..."
 yay -S --noconfirm brave-bin onlyoffice-bin visual-studio-code-bin
 
-# NVIDIA drivers
-prompt_nvidia_installation
+# NVIDIA drivers (comment out if not needed)
+print_msg "Installing NVIDIA drivers..."
+sudo pacman -S --noconfirm nvidia-dkms nvidia-settings nvidia-utils
 
-# Gaming software
-prompt_gaming_software_installation
+# Gaming software (comment out if not needed)
+print_msg "Installing gaming software..."
+yay -S --noconfirm heroic-games-launcher steam steamcmd
 
 # CLI configuration
 print_msg "Configuring CLI..."
 chsh -s $(which fish)
 sed -i '/if status is-interactive/,/end/ {
     /fastfetch/d
-}' "$CONFIG_FILE"
+}' "$FISH_CONFIG_FILE"
 echo "starship init fish | source" >> $FISH_CONFIG_FILE
 echo 'set fish_greeting ""' >> $FISH_CONFIG_FILE
 for zip_file in ./fonts/*.zip; do
